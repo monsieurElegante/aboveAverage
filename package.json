@@ -9,7 +9,7 @@
   "author": "Monsieur Elegante",
   "license": "ISC",
   "dependencies": {
-    "discord.io": "^2.5.3",
+    "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "winston": "^3.2.1"
   },

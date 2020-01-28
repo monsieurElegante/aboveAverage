@@ -1,27 +1,13 @@
- 'use strict';
-
-const fs = require('fs');
-const path = require('path');
 const winston = require('winston');
 
-const filePath = path.join(__dirname, 'winston.log');
-const stream = fs.createWriteStream(filePath);
-
 const logger = winston.createLogger({
-  transports: [
-    new winston.transports.Stream({ stream })
-  ]
+	level: 'info',
+	format: winston.format.json(),
+	defaultMeta: { service: 'user-service' },
+	transports: [
+		new winston.transports.Console({ level: 'info' }),
+		new winston.transports.File({ filename: 'error.log', level: 'error' }),
+		new winston.transports.File({ filename: 'combined.log' })
+	]
 });
 
-logger.level = 'debug';
-
-setTimeout(() => {
-  logger.log({ level: 'info', message: 'foo' });
-  logger.log({ level: 'info', message: 'bar' });
-}, 1000);
-
-setTimeout(() => {
-  try {
-    fs.unlinkSync(filePath); // eslint-disable-line no-sync
-  } catch (ex) {} // eslint-disable-line no-empty
-}, 2000);
