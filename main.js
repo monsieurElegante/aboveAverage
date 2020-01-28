@@ -22,34 +22,33 @@ bot.once('ready', () => {
 
 // Commands
 bot.on('message', msg => {
-	if (msg.content.charAt(0) === '!') {
-		// NOTE This is where bot commands are parsed.
-		switch(msg.content.slice(1, msg.content.length)) {
-			case "hello":
-				msg.reply("Why hello there!")
-				logger.log('info', msg)
-				break
+	try {
+		if (msg.content.charAt(0) === '!') {
+			// NOTE This is where bot commands are parsed.
+			switch(msg.content.slice(1, msg.content.length)) {
+				case "hello":
+					msg.reply("Why hello there!")
+					logger.log('info', msg.content)
+					break
+			}
 		}
-	}
-	// The bot has a 1/20 chance of reacting to AG with eggplant emoji
-	if (msg.author.tag === "JedJackalope#0459" && Math.floor(Math.random()*20) + 1 === 20) {
-		msg.react("🍆")
-	}
+		// The bot has a 1/20 chance of reacting to AG with eggplant emoji
+		if (msg.author.tag === "JedJackalope#0459" && Math.floor(Math.random()*20) + 1 === 20) {
+			msg.react("🍆")
+		}
+	} catch (err) { logger.log('error', err)}
 })
 
 // Reactions
-
-// bot.on('rulesAgreementReaction', (reaction, channel) => {
-// 	if(reaction.emoji.name === "👍" && channel.id  === "671708456344092683") {
-// 		channel.send("agreed")
-// 	}
-// })
-
 bot.on('rulesAgreementReaction', (reaction, message) => {
-	if(reaction.emoji.name === "👍" && message.id === "671718805080113153") {
-		console.log("success");
-		reaction.channel.send("agreed")
-	}
+	try {
+		// TODO Make bot successfully react to an emoji
+		if(reaction.emoji.name === "👍" && message.id === "671718805080113153") {
+			console.log("success");
+			reaction.channel.send("agreed")
+		}
+	} catch (err) { logger.log('error', err)}
+	
 })
 
 
