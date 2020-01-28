@@ -4,7 +4,7 @@ var Discord = require('discord.io');
 
 // Initialize Discord Bot
 var bot = new Discord.Client({
-	token: auth.token,
+	token: process.env.TOKEN,
 	autorun: true
 });
 
